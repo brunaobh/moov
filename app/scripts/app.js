@@ -31,6 +31,10 @@ angular
         templateUrl: 'views/login.html',
         controller: 'UserCtrl'
       })
+      .when('/profile', {
+        templateUrl: 'views/profile.html',
+        controller: 'ProfileCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

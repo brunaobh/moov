@@ -14,4 +14,8 @@ angular.module('eggApp')
       'AngularJS',
       'Karma'
     ];
+
+    $scope.test = {status: "ok"};
+
+
   });

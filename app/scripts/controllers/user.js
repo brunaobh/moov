@@ -8,22 +8,28 @@
  * Controller of the eggApp
  */
 angular.module('eggApp')
-  .controller('UserCtrl', function ($scope, $http, AuthenticationService) {
+  .controller('UserCtrl', function ($scope, $http, $location, AuthenticationService, flash) {
     
   // create a blank object to hold our form information
 	// $scope will allow this to pass between controller and view
-	$scope.formData = {};
+	$scope.formData = {};  
 
 	// process the form
 	$scope.processForm = function() {
     //AuthenticationService.login();
 
-    $scope.AuthenticationService.login($scope.formData).then(function(data) {
-      AuthenticationService.setSession(data.session.session_id);
-      $scope.session_id = AuthenticationService.getSession();
+    AuthenticationService.login($scope.formData).then(function(data) {
+      
+      if(data.status === 'success') {
+        AuthenticationService.setSession(data.session);
+        $location.path('/profile');  
+      }
+      else
+      {       
+        flash('danger', 'Usuário não cadastrado!');
+      }
+      
     });
-
-    alert($scope.session_id);
 
 		/*$http({
       method  : 'POST',
